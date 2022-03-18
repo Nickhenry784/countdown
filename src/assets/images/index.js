@@ -2,9 +2,10 @@
 export const images = {
   home: {
     banner: require('./home/banner.png'),
-    moreTurn: require('./home/Shoping.png'),
-    musicHotaru: require('./home/banner.png'),
-    background5: require('./home/background5.png'),
-    musicAtoHitotsu: require('./home/music/atoHitotsu.jpeg'),
+    shopping: require('./home/Shoping.png'),
+    background: require('./home/bg.png'),
+    logo: require('./home/logo.png'),
+    clock: require('./home/clock.png'),
+    button: require('./home/button.png'),
   },
 };

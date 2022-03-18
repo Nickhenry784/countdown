@@ -1,67 +1,119 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  ImageBackground,
+} from 'react-native';
 import { images } from 'assets/images';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
+import { SizedBox } from 'sizedbox';
 import { makeSelectBackgroundType, makeSelectTurn } from './selectors';
 import { decrementTurn, setBackgroundType, setTurn } from './actions';
 import { appStyle } from './style';
 import saga from './saga';
 import reducer from './reducer';
 import Layout from './Layout';
-import Buttons from './Buttons';
-import backgrounds from './data/backgrounds';
-import Musics from './Musics';
 
 const key = 'App';
 
 function App({ dispatch, turn, backgroundType }) {
   useInjectSaga({ key, saga });
   useInjectReducer({ key, reducer });
-  const [isShowButtons, setShowButtons] = useState(false);
+  const [isShowButtons, setShowButtons] = useState(true);
+  const [number, onChangeNumber] = useState(null);
+  const [inputNumber, onChangeInputNumber] = useState(null);
+  const [pause, setPause] = useState(false);
 
-  const onSetShowButtons = () => {
+  const intervalRef = useRef();
+
+  const decreaseNum = () => onChangeNumber(prev => prev - 1);
+
+  useEffect(() => {
+    if (!pause) {
+      setTimeout(decreaseNum, 2000);
+    }
+  }, [number, pause]);
+
+  const onClickShoppingButtons = () => {};
+
+  const onClickPauseButtons = () => {
+    setPause(!pause);
+  };
+
+  const onClickStartButton = () => {
     setShowButtons(!isShowButtons);
-  };
-
-  // Event Change background
-  const onChangeBackground = backgroundNew => {
-    if (turn <= 0) return false;
-    dispatch(setBackgroundType(backgroundNew));
-    dispatch(decrementTurn(1));
-  };
-
-  const onBack = () => {
-    dispatch(setBackgroundType('default'));
+    onChangeNumber(inputNumber > 999 ? 999 : inputNumber);
   };
 
   return (
     <Layout turn={turn}>
-      <Text style={appStyle.turn}>{`Turn ${turn}`}</Text>
-      {backgroundType !== 'default' && (
-        <TouchableOpacity
-          onPress={onBack}
-          onLongPress={onBack}
-          style={appStyle.turn}>
-          <Text style={appStyle.turn}>Back</Text>
-        </TouchableOpacity>
+      {isShowButtons && (
+        <>
+          <TouchableOpacity
+            onPress={onClickShoppingButtons}
+            onLongPress={onClickShoppingButtons}
+            style={appStyle.shoppingButton}>
+            <Image
+              source={images.home.shopping}
+              style={appStyle.shoppingImage}
+            />
+          </TouchableOpacity>
+          <View style={appStyle.viewCenter}>
+            <TextInput
+              style={appStyle.input}
+              onChangeText={onChangeInputNumber}
+              value={inputNumber}
+              placeholder="Nhập giá trị"
+              keyboardType="numeric"
+            />
+            <SizedBox vertical={10} />
+            <TouchableOpacity
+              onPress={onClickStartButton}
+              onLongPress={onClickStartButton}>
+              <ImageBackground
+                source={images.home.button}
+                style={appStyle.startImage}>
+                <Text style={appStyle.textStartButton}>START</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+        </>
       )}
-      <TouchableOpacity
-        onPress={onSetShowButtons}
-        onLongPress={onSetShowButtons}
-        style={appStyle.moreTurn}>
-        <Image source={images.home.moreTurn} style={appStyle.moreTurnImage} />
-      </TouchableOpacity>
-      {isShowButtons && <Buttons />}
-      {backgroundType === 'default' && <Musics />}
-      {/* <TouchableOpacity
-        onPress={onSetTurn}
-        onLongPress={onSetTurn}
-        style={appStyle.changeTurn}>
-        <Image source={images.home.button} style={appStyle.changeTurnImage} />
-      </TouchableOpacity> */}
+      {!isShowButtons && (
+        <>
+          <TouchableOpacity
+            onPress={onClickStartButton}
+            onLongPress={onClickStartButton}
+            style={appStyle.textBack}>
+            <Text style={appStyle.textBack}>Back</Text>
+          </TouchableOpacity>
+          <View style={appStyle.viewCenter}>
+            <ImageBackground
+              source={images.home.clock}
+              style={appStyle.clockStyle}>
+              <Text style={appStyle.textClock}>{number}</Text>
+            </ImageBackground>
+            <SizedBox vertical={50} />
+            <TouchableOpacity
+              onPress={onClickPauseButtons}
+              onLongPress={onClickPauseButtons}>
+              <ImageBackground
+                source={images.home.button}
+                style={appStyle.startImage}>
+                <Text style={appStyle.textStartButton}>
+                  {pause ? 'PLAY' : 'PAUSE'}
+                </Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
     </Layout>
   );
 }

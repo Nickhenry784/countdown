@@ -12,24 +12,66 @@ export const appStyle = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
-  moreTurn: {
+  shoppingButton: {
     position: 'absolute',
-    top: '1%',
+    top: '2%',
     right: '3%',
   },
-  moreTurnImage: {
+
+  shoppingImage: {
     resizeMode: 'contain',
-    width: 140,
-    height: 80,
+    width: 100,
+    height: 60,
   },
-  changeTurn: {
+  textBack: {
+    fontSize: 24,
+    color: 'white',
     position: 'absolute',
-    alignSelf: 'center',
-    bottom: '20%',
+    top: '3%',
+    left: '3%',
   },
-  changeTurnImage: {
-    width: 80,
+
+  textClock: {
+    fontSize: 120,
+    color: 'white',
+    fontWeight: '500',
+  },
+
+  clockStyle: {
+    width: 300,
+    height: 300,
+    flex: 0.52,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  textStartButton: {
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    position: 'absolute',
+    top: '40%',
+    left: '35%',
+  },
+
+  startImage: {
+    width: 230,
     height: 80,
+  },
+
+  viewCenter: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  input: {
+    height: 60,
+    width: '80%',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
   },
 });
 

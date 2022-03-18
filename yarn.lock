@@ -6749,6 +6749,11 @@ sisteransi@^1.0.5:
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
+sizedbox@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sizedbox/-/sizedbox-1.0.3.tgz#3a92a308371a3abb47422006441e3ebc792985da"
+  integrity sha512-pu1oFp3mc9zeNL1jwqwoavN+EzJG5B50E0Lf/3OLieDrNSPvoafKQkWQ7EVTyob9fTD1QHoMF87VKh4EPYGFFQ==
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
